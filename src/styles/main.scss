@@ -1,3 +1,56 @@
 body {
   margin: 0;
 }
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  width: 710px;
+  padding-top: 20px;
+}
+
+$numbers: 28, 29, 30, 31;
+
+@each $number in $numbers {
+  @for $i from 1 through $number {
+    .calendar-#{$number} div:nth-last-child(#{32-$i}) {
+      box-sizing: border-box;
+      width: 100px;
+      height: 100px;
+      background-color: #eee;
+      border: solid 1px #000;
+      position: relative;
+      margin: 0.5px;
+      cursor: pointer;
+    }
+  }
+}
+
+.calendar > div:hover {
+  background-color: #ffbfcb;
+  position: relative;
+  bottom: 20px;
+}
+
+@each $number in $numbers {
+  @for $i from 1 through $number {
+    .calendar-#{$number} div:nth-child(#{$i}):before {
+      content: "#{$i}";
+      font-family: Arial, sans-serif;
+      font-size: 30px;
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+$days: "mon" 0, "tue" 1, "wed" 2, "thir" 3, "fr" 4, "sat" 5, "sun" 6;
+
+@each $day, $number in $days {
+  .calendar-#{$day} div:first-child {
+    margin-left: #{$number+$number*100px};
+  }
+}
